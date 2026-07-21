@@ -1,0 +1,93 @@
+.result-container {
+    min-height: 100vh;
+    background: #f5f7ff;
+    padding: 50px;
+    text-align: center;
+}
+
+.result-container h1 {
+    font-size: 50px;
+    color: #5b21b6;
+    margin-bottom: 40px;
+}
+
+.score-card {
+    background: white;
+    width: 350px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+}
+
+.score-circle {
+    width: 170px;
+    height: 170px;
+    margin: 30px auto;
+    border-radius: 50%;
+    border: 12px solid #6d28d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: #6d28d9;
+}
+
+.analysis-section {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 350px;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+    color: #5b21b6;
+    margin-bottom: 20px;
+}
+
+.card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.card li {
+    margin: 15px;
+    font-size: 18px;
+}
+
+.recommendation {
+    width: 800px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+}
+
+.recommendation h2 {
+    color: #5b21b6;
+    margin-bottom: 20px;
+}
+
+.recommendation p {
+    font-size: 20px;
+    color: gray;
+}
+
+@media(max-width:900px) {
+
+    .recommendation {
+        width: 90%;
+    }
+
+}

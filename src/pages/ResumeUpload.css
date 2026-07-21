@@ -1,0 +1,40 @@
+.resume-page {
+    min-height: 100vh;
+    background: #f5f7ff;
+    text-align: center;
+    padding: 80px;
+}
+
+.resume-page h1 {
+    font-size: 50px;
+    color: #5b21b6;
+}
+
+.resume-page p {
+    color: gray;
+    margin: 20px;
+    font-size: 20px;
+}
+
+.upload-box {
+    width: 500px;
+    margin: 50px auto;
+    background: white;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.upload-box input {
+    margin: 20px;
+}
+
+.upload-box button {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    background: #6d28d9;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
