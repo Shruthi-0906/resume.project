@@ -8,6 +8,9 @@ import {
   FaMapMarkedAlt,
   FaStar,
   FaBriefcase,
+  FaBuilding,
+  FaUserGraduate,
+  FaTrophy,
 } from "react-icons/fa";
 import "./CompanySelection.css";
 
@@ -33,54 +36,60 @@ function CompanySelection() {
       image: google,
       category: "Tier 1 Product",
       difficulty: "9.6 / 10",
-      salary: "$140k - $220k / ₹25-45 LPA",
-      focus: "DSA, Graph Algortihms & System Design (Spanner/Spanner)",
-      rounds: "OA + 4 Tech Rounds + System Design + Googlyness",
+      salary: "₹28L - ₹52.5 LPA",
+      passRate: "6.8% Onsite",
+      focus: "Graphs, Heap Streams, BSTs & System Design (Spanner/TrueTime)",
+      rounds: "OA + 4 Onsites + Hiring Committee",
     },
     {
       name: "Amazon",
       image: amazon,
       category: "Tier 1 Product",
       difficulty: "9.4 / 10",
-      salary: "$135k - $200k / ₹22-40 LPA",
-      focus: "16 Leadership Principles (STAR Method) + Scalability",
-      rounds: "OA + 3 Tech Loop + 1 Bar Raiser Behavioral",
+      salary: "₹34L - ₹49 LPA",
+      passRate: "11.4% Onsite",
+      focus: "16 Leadership Principles (STAR Method) + Cache Scalability",
+      rounds: "OA + 3 Loops + 1 Bar Raiser",
     },
     {
       name: "Microsoft",
       image: microsoft,
       category: "Tier 1 Product",
       difficulty: "9.2 / 10",
-      salary: "$130k - $190k / ₹20-38 LPA",
-      focus: "Low-Level Design (LLD), Object-Oriented Principles & Trees",
-      rounds: "Codility Screen + 3 Technical Rounds + AA Hiring Manager",
+      salary: "₹24L - ₹46 LPA",
+      passRate: "12.8% Onsite",
+      focus: "Low-Level Design (LLD), Object-Oriented Principles, Mutex locks",
+      rounds: "Codility + 3 Rounds + AA Manager",
     },
     {
       name: "Zoho",
       image: zoho,
       category: "Product / Core",
       difficulty: "8.8 / 10",
-      salary: "₹6 - ₹15 LPA",
-      focus: "Hands-on C/C++/Java Machine Coding & Complex Systems",
-      rounds: "C Aptitude + Basic Coding + 3hr Machine Coding + Tech HR",
+      salary: "₹8L - ₹15 LPA",
+      passRate: "9.6% Machine",
+      focus: "Modular Code Design, Zero Crash Tolerance, Complex OOP",
+      rounds: "Aptitude + Basic + 3hr Machine Coding",
     },
     {
       name: "TCS",
       image: tcs,
       category: "IT / Services",
       difficulty: "8.2 / 10",
-      salary: "₹3.6 - ₹11.5 LPA (Ninja/Digital/Prime)",
-      focus: "SQL JOINs, Core Java/C++, Aptitude & CS Fundamentals",
-      rounds: "NQT Foundation & Advanced + Tech Interview + HR",
+      salary: "₹7.5L - ₹11.5 LPA (Prime)",
+      passRate: "18.4% Select",
+      focus: "RDBMS SQL JOINs, ACID Transactions, Core OOP concepts",
+      rounds: "NQT Advanced + Tech + HR",
     },
     {
       name: "Infosys",
       image: infosys,
       category: "IT / Services",
       difficulty: "8.0 / 10",
-      salary: "₹3.6 - ₹9.5 LPA (SE/DSE/SP)",
-      focus: "HackWithInfy Coding, Web Tech (React/Node) & DBMS ACID",
-      rounds: "InfyTQ / HackWithInfy + Technical Interview + HR",
+      salary: "₹9.5L - ₹13 LPA (SP)",
+      passRate: "16.0% Select",
+      focus: "Algorithm Optimization, React DOM, Node.js REST API scalability",
+      rounds: "HackWithInfy + Tech + HR",
     },
   ];
 
@@ -99,38 +108,41 @@ function CompanySelection() {
   });
 
   return (
-    <div className="company-page">
+    <div className="company-page-container">
 
       {/* HEADER SECTION */}
-      <div className="company-header">
-        <div>
-          <h1>Company-Specific Interview Hub</h1>
-          <p>Tailor your AI interviewer, questions, and roadmaps to target top tech companies</p>
+      <div className="company-header glass-panel">
+        <div className="header-text">
+          <h1>Company Selection Vault</h1>
+          <p>Switch target companies to update AI algorithms, question databases, and performance baselines.</p>
         </div>
 
-        <div className="active-target-badge">
-          <span>Active Target:</span>
-          <strong>{activeCompany}</strong>
+        <div className="target-card">
+          <FaTrophy className="target-icon" />
+          <div>
+            <p>Target Goal</p>
+            <h3>{activeCompany}</h3>
+          </div>
         </div>
       </div>
 
-      {/* SEARCH AND FILTER BAR */}
-      <div className="filter-controls">
-        <div className="search-box">
+      {/* FILTER & SEARCH */}
+      <div className="filter-controls-row">
+        <div className="search-wrapper">
           <FaSearch className="search-icon" />
           <input
             type="text"
-            placeholder="Search company or tech stack focus..."
+            placeholder="Search core competencies (e.g. Graph, LLD, SQL)..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
-        <div className="category-tabs">
+        <div className="cat-tabs-row">
           {["All", "Tier 1 Product", "Product / Core", "IT / Services"].map((cat) => (
             <button
               key={cat}
-              className={`cat-tab ${selectedCategory === cat ? "active" : ""}`}
+              className={`cat-btn ${selectedCategory === cat ? "active" : ""}`}
               onClick={() => setSelectedCategory(cat)}
             >
               {cat}
@@ -139,106 +151,76 @@ function CompanySelection() {
         </div>
       </div>
 
-      {/* COMPANY CARDS GRID */}
-      <div className="company-grid">
-
+      {/* CARDS GRID */}
+      <div className="company-cards-grid">
         {filteredCompanies.map((company) => {
           const isSelected = activeCompany === company.name;
 
           return (
             <div
-              className={`company-card ${isSelected ? "selected" : ""}`}
               key={company.name}
+              className={`company-vault-card glass-panel glass-card-hover ${isSelected ? "active-border" : ""}`}
               onClick={() => handleSelect(company.name)}
             >
-
-              <div className="card-top">
-                <div className="logo-box">
+              <div className="vault-card-header">
+                <div className="logo-container">
                   <img src={company.image} alt={company.name} />
                 </div>
-                <div className="company-meta">
-                  <h2>{company.name}</h2>
-                  <span className="category-badge">{company.category}</span>
+                <div className="title-section">
+                  <h3>{company.name}</h3>
+                  <span className="type-tag">{company.category}</span>
                 </div>
-
-                <div className="difficulty-badge">
-                  <FaStar className="star-icon" />
+                <div className="score-rating">
+                  <FaStar className="star" />
                   <span>{company.difficulty}</span>
                 </div>
               </div>
 
-              <div className="card-details">
-                <div className="detail-row">
+              <div className="vault-card-metrics">
+                <div className="metric-pill">
                   <FaBriefcase className="icon" />
-                  <span><strong>Est. Package:</strong> {company.salary}</span>
+                  <span>{company.salary}</span>
                 </div>
-
-                <div className="detail-row">
-                  <FaBrain className="icon highlight" />
-                  <span><strong>Key Focus:</strong> {company.focus}</span>
-                </div>
-
-                <div className="detail-row">
-                  <FaQuestionCircle className="icon" />
-                  <span><strong>Rounds:</strong> {company.rounds}</span>
+                <div className="metric-pill success">
+                  <FaUserGraduate className="icon" />
+                  <span>Pass Rate: {company.passRate}</span>
                 </div>
               </div>
 
-              {/* ACTION SHORTCUTS */}
-              <div className="card-actions">
+              <div className="competencies-block">
+                <h4>Core Evaluated Focus:</h4>
+                <p>{company.focus}</p>
+              </div>
+
+              <div className="rounds-block">
+                <span>Rounds: <strong>{company.rounds}</strong></span>
+              </div>
+
+              <div className="card-actions-grid">
                 <button
-                  className="action-btn chatbot"
+                  className="card-action-btn primary"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleSelect(company.name);
                     navigate("/chatbot");
                   }}
-                  title="Open RAG Chatbot tuned for this company"
                 >
                   <FaBrain /> RAG Chat
                 </button>
-
                 <button
-                  className="action-btn questions"
+                  className="card-action-btn secondary"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleSelect(company.name);
                     navigate("/interview");
                   }}
-                  title="Practice Questions"
                 >
-                  <FaQuestionCircle /> Q&As
-                </button>
-
-                <button
-                  className="action-btn mock"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleSelect(company.name);
-                    navigate("/mock");
-                  }}
-                  title="Start Mock Interview"
-                >
-                  <FaMicrophone /> Mock
-                </button>
-
-                <button
-                  className="action-btn roadmap"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleSelect(company.name);
-                    navigate("/roadmap");
-                  }}
-                  title="View Preparation Roadmap"
-                >
-                  <FaMapMarkedAlt /> Roadmap
+                  Practice Qs
                 </button>
               </div>
-
             </div>
           );
         })}
-
       </div>
 
     </div>

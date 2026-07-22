@@ -1,0 +1,14 @@
+.recharts-default-legend {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  color: #cbd5e1;
+}
+
+.recharts-polar-grid-concentric-path {
+  stroke: rgba(255, 255, 255, 0.08) !important;
+}
+
+.recharts-polar-grid-angle-line {
+  stroke: rgba(255, 255, 255, 0.08) !important;
+}

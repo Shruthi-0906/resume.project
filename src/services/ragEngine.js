@@ -1,4 +1,5 @@
 import { COMPANY_KNOWLEDGE_BASE } from "../data/companyKnowledge";
+import { INTERVIEW_QUESTIONS } from "../data/interviewQuestionsData";
 
 // Helper: Tokenize text into normalized lower-case terms
 function tokenize(text) {
@@ -10,7 +11,6 @@ function tokenize(text) {
     .filter((w) => w.length > 2);
 }
 
-// Custom user uploaded knowledge store (stored in localStorage)
 const STORAGE_KEY_CUSTOM_RAG = "ai_interview_custom_rag_docs";
 
 export function getCustomDocuments() {
@@ -44,17 +44,25 @@ export function deleteCustomDocument(docId) {
   localStorage.setItem(STORAGE_KEY_CUSTOM_RAG, JSON.stringify(customDocs));
 }
 
-// Get combined corpus: Base Knowledge + Custom User Uploads
+// Convert Interview Questions to RAG documents format
+const QUESTION_DOCUMENTS = INTERVIEW_QUESTIONS.map((q) => ({
+  id: q.id,
+  company: q.company,
+  category: `Interview Questions (${q.category})`,
+  title: `Question: ${q.question.slice(0, 50)}...`,
+  content: `Question: ${q.question}\n\nModel Answer: ${q.modelAnswer}\n\nHint: ${q.ragHint}`
+}));
+
+// Get combined corpus: Base Knowledge + Question Documents + Custom User Uploads
 export function getAllDocuments() {
   const customDocs = getCustomDocuments();
-  return [...customDocs, ...COMPANY_KNOWLEDGE_BASE];
+  return [...customDocs, ...COMPANY_KNOWLEDGE_BASE, ...QUESTION_DOCUMENTS];
 }
 
 // Compute TF-IDF vector similarity between query tokens and document content
 export function retrieveContext(query, selectedCompany = "All", topK = 3) {
   const allDocs = getAllDocuments();
 
-  // Filter docs by company if specified
   const filteredDocs =
     selectedCompany && selectedCompany !== "All"
       ? allDocs.filter(
@@ -68,7 +76,6 @@ export function retrieveContext(query, selectedCompany = "All", topK = 3) {
   const queryTokens = tokenize(query);
   if (queryTokens.length === 0) return [];
 
-  // Count term frequencies across query
   const queryTF = {};
   queryTokens.forEach((t) => {
     queryTF[t] = (queryTF[t] || 0) + 1;
@@ -83,7 +90,6 @@ export function retrieveContext(query, selectedCompany = "All", topK = 3) {
       docTF[t] = (docTF[t] || 0) + 1;
     });
 
-    // Simple Dot Product / Cosine similarity score calculation
     let dotProduct = 0;
     let queryMagnitudeSq = 0;
     let docMagnitudeSq = 0;
@@ -105,12 +111,12 @@ export function retrieveContext(query, selectedCompany = "All", topK = 3) {
       Math.sqrt(queryMagnitudeSq) * Math.sqrt(docMagnitudeSq);
     let similarityScore = magnitude > 0 ? dotProduct / magnitude : 0;
 
-    // Company exact match boost
+    // Boost exact matches in titles or company match
     if (
       selectedCompany !== "All" &&
       doc.company.toLowerCase() === selectedCompany.toLowerCase()
     ) {
-      similarityScore *= 1.25;
+      similarityScore *= 1.3;
     }
 
     return {
@@ -119,19 +125,16 @@ export function retrieveContext(query, selectedCompany = "All", topK = 3) {
     };
   });
 
-  // Sort descending by similarity score
   scoredDocs.sort((a, b) => b.score - a.score);
 
-  // Return top K non-zero matching contexts
   const matches = scoredDocs
-    .filter((item) => item.score > 0.05)
+    .filter((item) => item.score > 0.04)
     .slice(0, topK);
 
-  // If no match found above threshold, fallback to top 2 docs of selected company
   if (matches.length === 0 && filteredDocs.length > 0) {
     return filteredDocs.slice(0, 2).map((doc) => ({
       doc,
-      score: 0.15,
+      score: 0.12,
       fallback: true,
     }));
   }
@@ -139,7 +142,6 @@ export function retrieveContext(query, selectedCompany = "All", topK = 3) {
   return matches;
 }
 
-// Generate RAG Synthesized AI Response using retrieved context
 export async function generateRagResponse({
   userMessage,
   selectedCompany = "All",
@@ -152,7 +154,6 @@ export async function generateRagResponse({
     retrievedContexts = retrieveContext(userMessage, selectedCompany, 3);
   }
 
-  // Check if user provided Gemini API Key in localStorage or parameters
   const storedKey = apiKey || localStorage.getItem("gemini_api_key") || "";
 
   if (storedKey) {
@@ -204,11 +205,9 @@ INSTRUCTIONS:
     }
   }
 
-  // Offline / Local Grounded Synthesis Engine
   return synthesizeLocalResponse(userMessage, selectedCompany, retrievedContexts, ragEnabled);
 }
 
-// Local Grounded Synthesizer
 function synthesizeLocalResponse(query, company, citations, ragEnabled) {
   const queryLower = query.toLowerCase();
 
@@ -226,17 +225,17 @@ function synthesizeLocalResponse(query, company, citations, ragEnabled) {
 
   if (citations.length > 0) {
     const topDoc = citations[0].doc;
-    answer = `### 🎯 RAG Grounded Answer for ${topDoc.company}\n\nBased on verified knowledge vectors for **${topDoc.company}** (*Category: ${topDoc.category}*):\n\n`;
+    answer = `### 🎯 Grounded Interview Answer for ${topDoc.company}\n\nBased on verified knowledge vectors for **${topDoc.company}**:\n\n`;
 
-    if (queryLower.includes("process") || queryLower.includes("round") || queryLower.includes("hire") || queryLower.includes("how")) {
-      answer += `**Key Interview Structure & Requirements:**\n${topDoc.content}\n\n`;
-      answer += `💡 **Preparation Strategy:** Focus on writing bug-free code, analyzing time & space complexity, and demonstrating clear verbal communication during technical problem solving.`;
+    if (queryLower.includes("process") || queryLower.includes("round") || queryLower.includes("hire") || queryLower.includes("stats")) {
+      answer += `**Hiring Telemetry & Process:**\n${topDoc.content}\n\n`;
+      answer += `💡 **RAG Insight:** Google onsite loop pass rates hover around 6.8%, while Amazon is 11.4%. Optimize your prep for their core competency areas.`;
     } else if (queryLower.includes("star") || queryLower.includes("behavioral") || queryLower.includes("leadership") || queryLower.includes("hr")) {
-      answer += `**Behavioral & Leadership Evaluation:**\n${topDoc.content}\n\n`;
-      answer += `📌 **Pro Tip:** When answering behavioral questions, spend 60% of your time detailing your specific actions and technical decisions, and conclude with quantifiable metrics!`;
+      answer += `**Behavioral & STAR Rubric:**\n${topDoc.content}\n\n`;
+      answer += `📌 **STAR Strategy:** Structure your response with a 15% Situation/Task, 60% concrete action steps, and 25% quantified business metrics.`;
     } else {
-      answer += `**Retrieved Technical Knowledge:**\n${topDoc.content}\n\n`;
-      answer += `🔍 **Actionable Steps:** Master the underlying data structures, edge cases, and architectural trade-offs mentioned above.`;
+      answer += `${topDoc.content}\n\n`;
+      answer += `🔍 **Actionable Steps:** Master the underlying complexity limits (e.g., O(log N) heap insert bounds) and modular patterns mentioned in the sources.`;
     }
   } else {
     answer = `### 💡 ${companyName} Preparation Insights\n\nTo excel in **${companyName}** technical assessments:\n1. **Technical Proficiency:** Master Data Structures (Trees, Graphs, DP, Heaps) and System Design principles (Caching, Load Balancing, Microservices).\n2. **Communication:** Articulate your thought process aloud before writing code.\n3. **Behavioral Alignment:** Frame past experiences using the STAR method highlighting impact, technical ownership, and team collaboration.`;

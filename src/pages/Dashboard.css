@@ -1,290 +1,294 @@
-.dashboard {
-  padding: 30px;
-  max-width: 1300px;
+.dashboard-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1400px;
   margin: 0 auto;
-  color: #f1f5f9;
-  font-family: 'Inter', system-ui, sans-serif;
+  box-sizing: border-box;
+}
+
+/* TOP HERO BANNER */
+.dash-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 40px;
+  flex-wrap: wrap;
+  gap: 24px;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+  position: relative;
+  overflow: hidden;
+}
+
+.dash-hero-info {
+  flex: 1;
+}
+
+.candidate-rank {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: #f59e0b;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.rank-trophy {
+  font-size: 0.85rem;
+}
+
+.dash-hero h1 {
+  font-size: 2.2rem;
+  margin: 0 0 8px 0;
+  background: linear-gradient(135deg, #fff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dash-hero p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 1rem;
+  max-width: 650px;
+  line-height: 1.5;
+}
+
+.dash-telemetry {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.telemetry-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 14px 22px;
+  border-radius: 14px;
+}
+
+.telemetry-icon {
+  font-size: 1.8rem;
+}
+
+.telemetry-icon.streak {
+  color: #ef4444;
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.4));
+}
+
+.telemetry-icon.readiness {
+  color: #38bdf8;
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.4));
+}
+
+.telemetry-item h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.telemetry-item p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+/* LAYOUT GRID */
+.dash-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 1100px) {
+  .dash-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dash-left, .dash-right {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.top-banner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
+.dash-card {
+  padding: 24px;
+  background: rgba(17, 24, 39, 0.65);
 }
 
-.top-banner h1 {
-  margin: 0;
-  font-size: 1.8rem;
-  background: linear-gradient(135deg, #f8fafc, #94a3b8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.card-header {
+  margin-bottom: 20px;
 }
 
-.top-banner p {
-  margin: 4px 0 0 0;
-  color: #94a3b8;
-}
-
-.banner-right-badges {
+.card-header h2 {
+  font-size: 1.2rem;
+  color: #fff;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-.company-badge-dash {
-  background: rgba(99, 102, 241, 0.15);
-  border: 1px solid rgba(99, 102, 241, 0.4);
-  color: #a5b4fc;
-  padding: 8px 14px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  font-size: 0.85rem;
+.card-header .subtitle {
+  font-size: 0.8rem;
+  color: #64748b;
+  display: block;
+  margin-top: 4px;
 }
 
-.company-badge-dash strong {
-  color: #38bdf8;
-}
-
-.streak-box {
-  background: rgba(245, 158, 11, 0.15);
-  color: #f59e0b;
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  padding: 8px 14px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-  font-size: 0.85rem;
-}
-
-/* RAG FEATURED HERO BANNER */
-.rag-featured-banner {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(14, 165, 233, 0.2));
-  border: 1px solid rgba(99, 102, 241, 0.4);
-  border-radius: 20px;
+/* RAG QUICK ACCELERATOR CARD */
+.rag-accelerator-card {
   padding: 24px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(6, 182, 212, 0.12));
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  border-radius: 16px;
+  gap: 16px;
 }
 
-.featured-tag {
+.glow-badge {
   background: #6366f1;
   color: #fff;
-  font-size: 0.75rem;
-  font-weight: 800;
-  padding: 4px 10px;
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 3px 8px;
   border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+  display: inline-block;
+  margin-bottom: 6px;
 }
 
-.rag-featured-text h2 {
-  margin: 0 0 6px 0;
-  font-size: 1.4rem;
-  color: #fff;
+.accelerator-text h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.2rem;
 }
 
-.rag-featured-text p {
+.accelerator-text p {
   margin: 0;
-  color: #cbd5e1;
-  font-size: 0.95rem;
+  color: #94a3b8;
+  font-size: 0.88rem;
+  line-height: 1.4;
 }
 
-.launch-rag-btn {
+.accelerator-btn {
   background: linear-gradient(135deg, #6366f1, #4f46e5);
   color: #fff;
   border: none;
   padding: 12px 24px;
-  border-radius: 12px;
+  border-radius: 10px;
   font-weight: 700;
-  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.95rem;
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
-  transition: transform 0.2s ease;
+  gap: 8px;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
 }
 
-.launch-rag-btn:hover {
+.accelerator-btn:hover {
   transform: translateY(-2px);
+  filter: brightness(1.1);
 }
 
-/* STATS CONTAINER */
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 18px;
+/* WEAKNESS AUDIT */
+.weakness-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.stat-card {
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 20px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+.weakness-item {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 14px;
 }
 
-.stat-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(99, 102, 241, 0.4);
+.weakness-item-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
 }
 
-.stat-icon {
-  font-size: 1.8rem;
-  color: #38bdf8;
-  margin-bottom: 10px;
+.weakness-domain {
+  font-weight: 700;
+  color: #cbd5e1;
+  font-size: 0.85rem;
 }
 
-.stat-icon.highlight {
-  color: #6366f1;
+.weakness-impact {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
-.stat-card h2 {
-  margin: 0;
-  font-size: 0.9rem;
+.weakness-impact.high {
+  background: rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+}
+
+.weakness-impact.medium {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
+.weakness-desc {
+  margin: 0 0 6px 0;
+  font-size: 0.88rem;
   color: #94a3b8;
-  font-weight: 500;
 }
 
-.stat-card h1 {
-  margin: 6px 0 4px 0;
-  font-size: 1.8rem;
-  color: #f8fafc;
-}
-
-.stat-sub {
-  font-size: 0.78rem;
-  color: #64748b;
-}
-
-/* QUICK ACTIONS ROW */
-.quick-actions-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-}
-
-.quick-action-card {
-  background: #1e293b;
-  border: 1px solid #334155;
-  border-radius: 14px;
-  padding: 18px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.quick-action-card:hover {
-  background: rgba(99, 102, 241, 0.15);
-  border-color: #6366f1;
-}
-
-.qa-icon {
-  font-size: 1.5rem;
-  color: #6366f1;
-  margin-bottom: 8px;
-}
-
-.quick-action-card h3 {
-  margin: 0 0 4px 0;
-  font-size: 1rem;
-  color: #f8fafc;
-}
-
-.quick-action-card p {
+.weakness-rec {
   margin: 0;
   font-size: 0.82rem;
-  color: #94a3b8;
+  color: #38bdf8;
 }
 
-/* BOTTOM GRID */
-.bottom-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
-}
-
-.activity-card, .goal-card, .achievement-card {
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 20px;
-}
-
-.activity-card h2, .goal-card h2, .achievement-card h2 {
-  margin: 0 0 16px 0;
-  font-size: 1.1rem;
-  color: #f8fafc;
-}
-
-.activity-card ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* MILESTONES / GOALS */
+.milestones-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  font-size: 0.88rem;
-  color: #cbd5e1;
-}
-
-.goal-card {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.goal {
-  display: flex;
-  align-items: center;
   gap: 10px;
-  background: rgba(30, 41, 59, 0.5);
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 0.9rem;
 }
 
-.achievement-card {
-  text-align: center;
+.milestone-item {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 12px;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.trophy {
-  font-size: 3rem;
-  color: #f59e0b;
-  margin-bottom: 12px;
-  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.4));
+.milestone-item:hover {
+  background: rgba(30, 41, 59, 0.4);
 }
 
-.achievement-card p {
-  margin: 4px 0 12px 0;
-  color: #94a3b8;
-  font-size: 0.9rem;
+.milestone-item input {
+  width: 18px;
+  height: 18px;
+  accent-color: #10b981;
 }
 
-.xp-badge {
-  background: rgba(99, 102, 241, 0.2);
-  color: #a5b4fc;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 700;
+.milestone-item span {
+  font-size: 0.88rem;
+  color: #e2e8f0;
+}
+
+.milestone-item.checked span {
+  text-decoration: line-through;
+  color: #64748b;
 }

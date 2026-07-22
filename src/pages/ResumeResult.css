@@ -1,93 +1,165 @@
-.result-container {
-    min-height: 100vh;
-    background: #f5f7ff;
-    padding: 50px;
-    text-align: center;
+.resume-result-container {
+  padding: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
 }
 
-.result-container h1 {
-    font-size: 50px;
-    color: #5b21b6;
-    margin-bottom: 40px;
+.result-header-panel {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 30px;
 }
 
-.score-card {
-    background: white;
-    width: 350px;
-    margin: auto;
-    padding: 30px;
-    border-radius: 25px;
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+.result-header-panel h1 {
+  font-size: 1.8rem;
+  margin: 0 0 4px 0;
+  background: linear-gradient(135deg, #fff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.score-circle {
-    width: 170px;
-    height: 170px;
-    margin: 30px auto;
-    border-radius: 50%;
-    border: 12px solid #6d28d9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    font-weight: bold;
-    color: #6d28d9;
+.result-header-panel p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
 }
 
-.analysis-section {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 50px;
-    flex-wrap: wrap;
+/* MAIN CARD */
+.result-main-card {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 30px;
+  background: rgba(17, 24, 39, 0.7);
+  flex-wrap: wrap;
 }
 
-.card {
-    width: 350px;
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+.match-gauge-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 4px solid #10b981;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+  flex-shrink: 0;
 }
 
-.card h2 {
-    color: #5b21b6;
-    margin-bottom: 20px;
+.match-gauge-circle h1 {
+  font-size: 2.2rem;
+  margin: 0;
+  color: #fff;
 }
 
-.card ul {
-    list-style: none;
-    padding: 0;
+.match-gauge-circle p {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin: 0;
 }
 
-.card li {
-    margin: 15px;
-    font-size: 18px;
+.match-status-info {
+  flex: 1;
 }
 
-.recommendation {
-    width: 800px;
-    margin: 50px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+.match-status-badge {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  font-size: 0.7rem;
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  display: inline-block;
+  margin-bottom: 8px;
 }
 
-.recommendation h2 {
-    color: #5b21b6;
-    margin-bottom: 20px;
+.match-status-info h2 {
+  margin: 0 0 6px 0;
+  font-size: 1.25rem;
 }
 
-.recommendation p {
-    font-size: 20px;
-    color: gray;
+.match-status-info p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
-@media(max-width:900px) {
+/* GRID GAP */
+.skills-gap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
 
-    .recommendation {
-        width: 90%;
-    }
+@media (max-width: 768px) {
+  .skills-gap-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
+.skill-status-card {
+  padding: 24px;
+  background: rgba(17, 24, 39, 0.7);
+}
+
+.skill-status-card h3 {
+  font-size: 1rem;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skill-status-card.positive h3 { color: #34d399; }
+.skill-status-card.negative h3 { color: #f43f5e; }
+
+.skill-status-card ul {
+  padding-left: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+}
+
+/* STRATEGIC ACTIONS */
+.strategic-actions-box {
+  padding: 24px;
+  background: rgba(17, 24, 39, 0.7);
+}
+
+.strategic-actions-box h2 {
+  font-size: 1.15rem;
+  margin: 0 0 16px 0;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.strategic-actions-box ol {
+  padding-left: 20px;
+  margin: 0 0 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.result-actions-row {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
 }

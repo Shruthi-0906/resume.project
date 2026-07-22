@@ -1,58 +1,89 @@
+import { useNavigate } from "react-router-dom";
+import { FaCheckCircle, FaExclamationCircle, FaBrain, FaArrowLeft } from "react-icons/fa";
 import "./ResumeResult.css";
 
 function ResumeResult() {
-  const company = localStorage.getItem("company");
+  const navigate = useNavigate();
+  const company = localStorage.getItem("company") || "Google";
 
   return (
-    <div className="result-container">
+    <div className="resume-result-container">
 
-      <h1>{company} Resume Analysis</h1>
-
-      <div className="score-card">
-        <h2>Resume Score</h2>
-        <div className="score-circle">
-          85%
+      {/* HEADER */}
+      <div className="result-header-panel glass-panel">
+        <button className="back-btn" onClick={() => navigate("/resume")}>
+          <FaArrowLeft /> Back to Upload
+        </button>
+        <div>
+          <h1>Parsing Analysis Results</h1>
+          <p>Grounding metrics mapped against active **{company} SDE-II** target profiles.</p>
         </div>
       </div>
 
-      <div className="analysis-section">
+      {/* MATCH SCORE BLOCK */}
+      <div className="result-main-card glass-panel">
+        <div className="match-gauge-circle">
+          <h1>88%</h1>
+          <p>Target Match</p>
+        </div>
+        <div className="match-status-info">
+          <span className="match-status-badge high">HIGH ALIGNMENT</span>
+          <h2>Resume matches {company} criteria.</h2>
+          <p>
+            Your experiences align well with standard engineering competencies. Some minor gaps identified in distributed frameworks can be optimized via custom RAG topics.
+          </p>
+        </div>
+      </div>
 
-        <div className="card">
-          <h2>✅ Matching Skills</h2>
+      {/* SKILL GAP GRID */}
+      <div className="skills-gap-grid">
 
+        <div className="skill-status-card glass-panel positive">
+          <h3><FaCheckCircle /> Matches Found:</h3>
           <ul>
-            <li>Java</li>
-            <li>React</li>
-            <li>SQL</li>
-            <li>Problem Solving</li>
+            <li>Strong JavaScript, React, and Front-End rendering vectors.</li>
+            <li>Solid database normalization & transactional query layouts (SQL).</li>
+            <li>Modular OOP architecture (classes, encapsulation, SOLID design).</li>
           </ul>
         </div>
 
-        <div className="card">
-          <h2>❌ Missing Skills</h2>
-
+        <div className="skill-status-card glass-panel negative">
+          <h3><FaExclamationCircle /> Missing Competency Gaps:</h3>
           <ul>
-            <li>Data Structures</li>
-            <li>System Design</li>
-            <li>AWS</li>
-            <li>Git</li>
+            <li>No mention of distributed caches (e.g., Redis, Memcached).</li>
+            <li>Lack of clear concurrency references (e.g. mutex locks, multi-threading).</li>
+            <li>AWS Cloud storage structures not explicitly detailed.</li>
           </ul>
         </div>
 
       </div>
 
-      <div className="recommendation">
-        <h2>💡 Recommendation</h2>
+      {/* STRATEGIC SUGGESTIONS */}
+      <div className="strategic-actions-box glass-panel">
+        <h2><FaBrain /> Recommended Action Checklist:</h2>
+        <ol>
+          <li>
+            <strong>Add Caching Projects:</strong> Update projects description with Redis integrations.
+          </li>
+          <li>
+            <strong>Study Concurrency:</strong> Ask RAG chatbot: <em>"Thread synchronization and locks in Microsoft interviews"</em>.
+          </li>
+          <li>
+            <strong>Tweak Resume:</strong> Re-upload resume targeting the identified missing areas.
+          </li>
+        </ol>
 
-        <p>
-          Improve Data Structures, AWS and System Design
-          before applying to {company}.
-        </p>
+        <div className="result-actions-row">
+          <button className="btn-action-primary" onClick={() => navigate("/chatbot")}>
+            Query RAG Chatbot to Fix Gaps
+          </button>
+          <button className="btn-action-secondary" onClick={() => navigate("/dashboard")}>
+            Back to Dashboard
+          </button>
+        </div>
       </div>
 
     </div>
-    
-
   );
 }
 
